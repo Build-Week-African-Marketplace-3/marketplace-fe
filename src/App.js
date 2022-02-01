@@ -9,7 +9,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import Styled from 'styled-components';
 
-import './App.css';
 
 const Header = Styled.header`
   position: absolute;
