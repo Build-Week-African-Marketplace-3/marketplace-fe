@@ -91,7 +91,6 @@ const Login = () => {
     return (
         <>
             <GlobalStyle />
-            <h1>Login</h1>
             <StyledFormWrapper>
                 <StyledForm onSubmit={handleSubmit}>
                         <label> Username:
