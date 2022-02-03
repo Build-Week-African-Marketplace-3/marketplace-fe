@@ -44,7 +44,7 @@ const StyledInput = styled.input`
 
 const Marketplace = () => {
     const [items, setItems] = useState([]);
-    
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         axios.get('https://marketplace-be-02.herokuapp.com/api/items')
@@ -59,15 +59,28 @@ const Marketplace = () => {
             console.log({err})
         })
     }, [])
+
+    const handleChange = e => {
+        setSearchInput(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        setItems(items => items.filter((item) => item.name.includes(searchInput)))
+
+    }
+
     
 
     return(
         <>
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <StyledInput
                 type='text'
+                name='search'
                 placeholder="search"
+                onChange={handleChange}
                 />
             </form>
         </div>
