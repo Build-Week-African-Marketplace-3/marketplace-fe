@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axiosWithAuth from "./utils/axiosWithAuth";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledContainer = styled.div`
 margin-top: 0;
+
 `
 
 const StyledWrapper = styled.div`
@@ -23,32 +24,53 @@ const StyledCard = styled.div`
      
 `
 const StyledImg = styled.img`
-    width: 85%;
-    height: 85%;
+    max-width: 65%;
+    max-height: 65%;
     margin: 15px;
     border: 1px solid #555555;
     border-radius: 5px;
     box-sizing: border-box;
 `
 
+const StyledInput = styled.input`
+    width: 20%;
+    margin-left:40%;
+    position: fixed;
+    margin-top: 0.8vh;
+    height: 4vh;
+    text-align: center;
+    font-size: 2vh;
+`
+
 const Marketplace = () => {
     const [items, setItems] = useState([]);
+    
 
     useEffect(() => {
-        axiosWithAuth().get('/items')
+        axios.get('https://marketplace-be-02.herokuapp.com/api/items')
         .then(resp => {
             setItems([
                 ...items,
                 ...resp.data
             ])
+            console.log(resp)
         })
         .catch(err => {
             console.log({err})
         })
     }, [])
-    console.log(items)
+    
 
     return(
+        <>
+        <div>
+            <form>
+                <StyledInput
+                type='text'
+                placeholder="search"
+                />
+            </form>
+        </div>
         <StyledContainer>
             <StyledWrapper>
                 {items.map(item => (
@@ -61,6 +83,7 @@ const Marketplace = () => {
                 ))}
             </StyledWrapper>
         </StyledContainer>
+        </>
     )
 }
 
